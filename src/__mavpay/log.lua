@@ -1,7 +1,7 @@
 local options, _, args, _ = ...
 
 local args_values = table.map(args, function(v) return v.arg end)
-local services = require("__tezpay.services")
+local services = require("__mavpay.services")
 
 local to_check = table.values(services.get_active_names())
 if #args_values > 0 then
@@ -13,5 +13,5 @@ if #args_values > 0 then
     end
 end
 
-local service_manager = require("__xtz.service-manager")
+local service_manager = require("__mvrk.service-manager")
 service_manager.logs(to_check, options)

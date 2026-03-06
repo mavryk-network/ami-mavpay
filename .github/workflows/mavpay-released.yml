@@ -1,8 +1,8 @@
-name: tezpay-release-dispatch
+name: mavpay-release-dispatch
 
 on:
   repository_dispatch:
-    types: ["tezpay-release"]
+    types: ["mavpay-release"]
 
 jobs:
   build:
@@ -22,18 +22,18 @@ jobs:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
           # git checkout -b "$SOURCE-new-release"
-          eli .github/update-tezpay-version.lua
+          eli .github/update-mavpay-version.lua
           eli .github/get-specs-version.lua >> $GITHUB_OUTPUT
 
       - name: Add & Commit
         id: push_changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: '[ "src/__xtz/sources.hjson", "src/specs.json" ]'
+          add: '[ "src/__mvrk/sources.hjson", "src/specs.json" ]'
           push: true
-          message: updated-tezpay-version
-          author_name: TezpayReleaseDispatch
-          author_email: tezpay.release.dispatch@alis.is
+          message: updated-mavpay-version
+          author_name: MavpayReleaseDispatch
+          author_email: mavpay.release.dispatch@alis.is
           branch: main
 
       - name: publish
@@ -48,5 +48,6 @@ jobs:
     with:
       commit-ref: ${{needs.build.outputs.commit-ref}}
     secrets:
-      AIR_ACCESS_TOKEN: ${{ secrets.AIR_ACCESS_TOKEN }}
-      DISCORD_TZC_TEZPAY: ${{ secrets.DISCORD_TZC_TEZPAY }}
+      MAVRYK_AMI_ACCESS_TOKEN: ${{ secrets.MAVRYK_AMI_ACCESS_TOKEN }}
+      TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}

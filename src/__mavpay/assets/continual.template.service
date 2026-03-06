@@ -17,7 +17,7 @@ Environment="HOME={{{ROOT_DIR}}}"
 # Environment="PRIVATE_KEY_FILE={{{ROOT_DIR}}}/payout_wallet_private.key"
 # Environment="REMOTE_SIGNER_CONFIGURATION_FILE={{{ROOT_DIR}}}/remote-signer.hjson"
 
-ExecStart={{{ROOT_DIR}}}/bin/tezpay --path={{{ROOT_DIR}}} continual {{{model.STARTUP_ARGS__CLI_ARGS}}}
+ExecStart={{{ROOT_DIR}}}/bin/mavpay --path={{{ROOT_DIR}}} continual {{{model.STARTUP_ARGS__CLI_ARGS}}}
 
 {{#model.SERVICE_CONFIGURATION__ARRAY}}
 {{{key}}}={{{value}}}

@@ -10,9 +10,11 @@ on:
         required: true
         type: string
     secrets:
-      AIR_ACCESS_TOKEN:
+      MAVRYK_AMI_ACCESS_TOKEN:
         required: true
-      DISCORD_TZC_TEZPAY:
+      TELEGRAM_TO:
+        required: true
+      TELEGRAM_TOKEN:
         required: true
 
 jobs:
@@ -64,18 +66,19 @@ jobs:
           export PACKAGE_SOURCE=https://github.com/${{github.repository}}/releases/download/$VERSION/$ID-$VERSION.zip
           echo "PACKAGE_SOURCE=$PACKAGE_SOURCE" >> $GITHUB_OUTPUT
 
-      - name: Air Repository Dispatch
+      - name: Mavryk AMI Registry Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.AIR_ACCESS_TOKEN }}
-          repository: alis-is/air
+          token: ${{ secrets.MAVRYK_AMI_ACCESS_TOKEN }}
+          repository: mavryk-network/application-image-repository
           event-type: app-release
           client-payload: '{ "id": "${{ steps.repository_info.outputs.ID }}", "repository": "${{github.repository}}", "version": "${{steps.repository_info.outputs.VERSION}}", "package": "${{ steps.release_info.outputs.PACKAGE_SOURCE }}", "sha256": "${{ steps.release_info.outputs.SHA256 }}"}'
 
       - name: Notify new version available
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_TZC_TEZPAY }}
-          VERSION: ${{steps.repository_info.outputs.VERSION}}
+        uses: appleboy/telegram-action@master
         with:
-          args: "New ${{steps.repository_info.outputs.ID}} (ami package) **${{steps.repository_info.outputs.VERSION}}** released. (<https://github.com/tez-capital/ami-tezpay/releases/tag/${{steps.repository_info.outputs.VERSION}}>)"
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ami-mavpay ${{ steps.repository_info.outputs.VERSION }} has been released.
+            More info at https://github.com/mavryk-network/ami-mavpay/releases/tag/${{ steps.repository_info.outputs.VERSION }}.

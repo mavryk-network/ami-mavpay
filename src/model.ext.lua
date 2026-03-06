@@ -18,7 +18,7 @@ end
 
 am.app.set_model(
 	{
-		WANTED_BINARIES = { "tezpay" },
+		WANTED_BINARIES = { "mavpay" },
 		SERVICE_CONFIGURATION = util.merge_tables(
 			{
 				TimeoutStopSec = 600,

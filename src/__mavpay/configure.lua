@@ -7,7 +7,7 @@ local uid, err = fs.getuid(user)
 ami_assert(uid, "failed to get " .. user .. "uid - error: " .. tostring(err))
 
 --- enable linger if not root
---- for now we run tezpay continual under root systemd
+--- for now we run mavpay continual under root systemd
 -- if user ~= "root" then
 -- 	local result, err = proc.exec("loginctl show-user ".. user .. " --property=Linger=yes", { stdout = "pipe" })
 -- 	ami_assert(result, "failed to set linger for " .. user .. " - error: " .. tostring(err))
@@ -19,8 +19,8 @@ ami_assert(uid, "failed to get " .. user .. "uid - error: " .. tostring(err))
 -- 	end
 -- end
 
-local service_manager = require"__xtz.service-manager"
-local services = require "__tezpay.services"
+local service_manager = require"__mvrk.service-manager"
+local services = require "__mavpay.services"
 
 service_manager.remove_services(services.cleanup_names) -- cleanup past install
 service_manager.install_services(services.get_active())
@@ -30,7 +30,7 @@ log_success(am.app.get("id") .. " services configured")
 local ok, err = fs.mkdirp("samples")
 ami_assert(ok, "failed to create samples directory - error: " .. tostring(err))
 
-local constants = require"__tezpay/constants"
+local constants = require"__mavpay/constants"
 local configurations = constants.configurations
 -- download sample config
 local ok, err = net.download_file(configurations.config, "samples/config.hjson",
@@ -47,4 +47,4 @@ local ok, err = net.download_file(configurations.payout_wallet_private_key, "sam
         { follow_redirects = true })
 if not ok then log_warn("Failed to download sample payout_wallet_private.key - " .. (err or "")) end
 
-require"__xtz.base_utils".setup_file_ownership()
+require"__mvrk.base_utils".setup_file_ownership()

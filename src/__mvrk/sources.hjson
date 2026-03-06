@@ -1,0 +1,24 @@
+// mavpay SOURCE: https://github.com/mavryk-network/mavpay/releases 
+{
+	darwin-arm64: {
+		mavpay: {
+			sha256: 4cde570e6e3f2c94631039c4d16e77d4690528f44ee32bb9373d6da2ce8490dc
+			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-macos-arm64
+			version: 0.24.4
+		}
+	}
+	linux-arm64: {
+		mavpay: {
+			sha256: 4d74ac23a1fc16307ae5f63e65ed476bc01375e83a6a55487e9384da2a7c4000
+			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-linux-arm64
+			version: 0.24.4
+		}
+	}
+	linux-x86_64: {
+		mavpay: {
+			sha256: d08fe298bc54aa6126dfe6107c5a9f2595b24807b8b40c48ca108cffaa4680b4
+			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-linux-amd64
+			version: 0.24.4
+		}
+	}
+}

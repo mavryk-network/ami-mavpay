@@ -1,0 +1,8 @@
+{
+    "Description": '''
+mavpay - mavryk reward distributor
+'''
+    Links: [
+        { website: "https://github.com/mavryk-network/mavpay" }
+    ]
+}

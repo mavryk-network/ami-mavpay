@@ -1,5 +1,5 @@
 {
-    executable: {{{ROOT_DIR}}}/bin/tezpay
+    executable: {{{ROOT_DIR}}}/bin/mavpay
     args: [
         --path={{{ROOT_DIR}}}
         continual

@@ -12,7 +12,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>{{{ROOT_DIR}}}/bin/tezpay</string>
+        <string>{{{ROOT_DIR}}}/bin/mavpay</string>
         <string>--path={{{ROOT_DIR}}}</string>
         <string>continual</string>
         {{#model.STARTUP_ARGS}}

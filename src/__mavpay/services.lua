@@ -2,15 +2,15 @@ local app_id = am.app.get("id")
 local continual_service_id = "continual"
 
 local possible_residues = {
-	[app_id .. "-tezpay"] = am.app.get_model("TEZPAY_SERVICE_FILE", "__tezpay/assets/tezpay.service")
+	[app_id .. "-mavpay"] = am.app.get_model("MAVPAY_SERVICE_FILE", "__mavpay/assets/mavpay.service")
 }
 
 local available_services = {
-	[app_id .. "-" .. continual_service_id] = am.app.get_model("TEZPAY_SERVICE_FILE", "__tezpay/assets/continual")
+	[app_id .. "-" .. continual_service_id] = am.app.get_model("MAVPAY_SERVICE_FILE", "__mavpay/assets/continual")
 }
 
 local function get_active_services()
-	local service_manager = require "__xtz.service-manager"
+	local service_manager = require "__mvrk.service-manager"
 	local installed_services = service_manager.get_installed_services(table.keys(available_services))
 	local active_services = {}
 	for _, id in ipairs(installed_services) do

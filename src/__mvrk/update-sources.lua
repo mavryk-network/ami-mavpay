@@ -1,6 +1,6 @@
--- tezpay SOURCE: https://github.com/tez-capital/tezpay/releases
+-- mavpay SOURCE: https://github.com/mavryk-network/mavpay/releases
 -- usage:
--- eli src/__xtz/update-sources.lua [version]
+-- eli src/__mvrk/update-sources.lua [version]
 
 local hjson = require "hjson"
 
@@ -70,29 +70,29 @@ end
 -- Fetch Releases
 --------------------------------------------------------------------------------
 
-local tezpay_release = fetch_github_release("tez-capital/tezpay", static_version)
-if tezpay_release then
-	print("Found Tezpay release: " .. tezpay_release.tag_name)
+local mavpay_release = fetch_github_release("mavryk-network/mavpay", static_version)
+if mavpay_release then
+	print("Found Mavpay release: " .. mavpay_release.tag_name)
 else
-	print("Warning: Failed to fetch Tezpay release")
+	print("Warning: Failed to fetch Mavpay release")
 end
 
 --------------------------------------------------------------------------------
 -- Update Sources
 --------------------------------------------------------------------------------
 
-local current_sources = hjson.parse(fs.read_file("src/__xtz/sources.hjson"))
+local current_sources = hjson.parse(fs.read_file("src/__mvrk/sources.hjson"))
 local new_sources_map = {}
 
 local platforms = {
 	["linux-x86_64"] = {
-		tezpay_pattern = "tezpay%-linux%-amd64"
+		mavpay_pattern = "mavpay%-linux%-amd64"
 	},
 	["linux-arm64"] = {
-		tezpay_pattern = "tezpay%-linux%-arm64"
+		mavpay_pattern = "mavpay%-linux%-arm64"
 	},
 	["darwin-arm64"] = {
-		tezpay_pattern = "tezpay%-macos%-arm64"
+		mavpay_pattern = "mavpay%-macos%-arm64"
 	}
 }
 
@@ -100,19 +100,19 @@ for platform, config in pairs(platforms) do
 	print("Updating " .. platform .. "...")
 	local new_platform_sources = {}
 
-	if tezpay_release then
-		local tezpay_data = extract_asset(tezpay_release, config.tezpay_pattern)
-		if tezpay_data then
-			new_platform_sources.tezpay = tezpay_data
+	if mavpay_release then
+		local mavpay_data = extract_asset(mavpay_release, config.mavpay_pattern)
+		if mavpay_data then
+			new_platform_sources.mavpay = mavpay_data
 		else
-			print("  Warning: Tezpay asset matching " .. config.tezpay_pattern .. " not found")
-			if current_sources[platform] and current_sources[platform].tezpay then
-				new_platform_sources.tezpay = current_sources[platform].tezpay
+			print("  Warning: Mavpay asset matching " .. config.mavpay_pattern .. " not found")
+			if current_sources[platform] and current_sources[platform].mavpay then
+				new_platform_sources.mavpay = current_sources[platform].mavpay
 			end
 		end
 	else
-		if current_sources[platform] and current_sources[platform].tezpay then
-			new_platform_sources.tezpay = current_sources[platform].tezpay
+		if current_sources[platform] and current_sources[platform].mavpay then
+			new_platform_sources.mavpay = current_sources[platform].mavpay
 		end
 	end
 
@@ -126,29 +126,29 @@ for k, v in pairs(current_sources) do
 	end
 end
 
-local new_content = "// tezpay SOURCE: https://github.com/tez-capital/tezpay/releases \n"
+local new_content = "// mavpay SOURCE: https://github.com/mavryk-network/mavpay/releases \n"
 new_content = new_content .. hjson.stringify(new_sources_map, { separator = true, sort_keys = true })
 
-fs.write_file("src/__xtz/sources.hjson", new_content)
-print("Updated src/__xtz/sources.hjson")
+fs.write_file("src/__mvrk/sources.hjson", new_content)
+print("Updated src/__mvrk/sources.hjson")
 
 --------------------------------------------------------------------------------
 -- Update specs.json version
 --------------------------------------------------------------------------------
 
-if tezpay_release then
-	local tezpay_version = tezpay_release.tag_name
+if mavpay_release then
+	local mavpay_version = mavpay_release.tag_name
 	local specs_raw = fs.read_file("src/specs.json")
 	local specs = hjson.parse(specs_raw)
 	local package_version = string.split(specs.version, "+", true)[1]
-	local current_tezpay_version = string.split(specs.version, "+", true)[2]
+	local current_mavpay_version = string.split(specs.version, "+", true)[2]
 
-	-- Only update if tezpay version changed
-	if current_tezpay_version ~= tezpay_version then
+	-- Only update if mavpay version changed
+	if current_mavpay_version ~= mavpay_version then
 		local package_version_parts = string.split(package_version, ".", true)
 		local package_version_patch = tonumber(package_version_parts[3]) + 1
 		package_version = package_version_parts[1] .. "." .. package_version_parts[2] .. "." .. package_version_patch
-		specs.version = package_version .. "+" .. tezpay_version
+		specs.version = package_version .. "+" .. mavpay_version
 		fs.write_file("src/specs.json", hjson.stringify_to_json(specs, { indent = "    " }))
 		print("Updated src/specs.json to " .. specs.version)
 	else

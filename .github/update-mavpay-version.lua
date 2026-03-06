@@ -3,4 +3,4 @@ if not version then
 	os.exit(222)
 end
 
-os.execute("eli src/__xtz/update-sources.lua " .. version)
+os.execute("eli src/__mvrk/update-sources.lua " .. version)

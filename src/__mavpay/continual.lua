@@ -1,7 +1,7 @@
 local _, command, _, cli_context = ...
 
-local services = require("__tezpay.services")
-local service_manager = require "__xtz.service-manager"
+local services = require("__mavpay.services")
+local service_manager = require "__mvrk.service-manager"
 
 local actions = {
 	enable = function()
