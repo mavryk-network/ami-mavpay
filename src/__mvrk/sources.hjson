@@ -2,21 +2,21 @@
 {
 	darwin-arm64: {
 		mavpay: {
-			sha256: 4cde570e6e3f2c94631039c4d16e77d4690528f44ee32bb9373d6da2ce8490dc
+			sha256: cfe05446d6ef7276371493e1ff56811cc8c29fdbc93fe3cc64f72a70fbd29432
 			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-macos-arm64
 			version: 0.24.4
 		}
 	}
 	linux-arm64: {
 		mavpay: {
-			sha256: 4d74ac23a1fc16307ae5f63e65ed476bc01375e83a6a55487e9384da2a7c4000
+			sha256: e1ac01e9cdd514f65baa894ce6f850ce4b47d842666582cee81a8d222a6cfec2
 			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-linux-arm64
 			version: 0.24.4
 		}
 	}
 	linux-x86_64: {
 		mavpay: {
-			sha256: d08fe298bc54aa6126dfe6107c5a9f2595b24807b8b40c48ca108cffaa4680b4
+			sha256: 4c6a144efd13107004d4136272548b0feca3bdf7d97dfcee5cb613464a8ed752
 			url: https://github.com/mavryk-network/mavpay/releases/download/0.24.4/mavpay-linux-amd64
 			version: 0.24.4
 		}
